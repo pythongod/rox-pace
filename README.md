@@ -9,13 +9,22 @@ The **hyrox-pacing** agent skill brings the split model and race-result percenti
 
 ## Install
 
-Claude Code:
+**Claude Code.** Add this repo as a marketplace once, then install the plugin:
 
 ```
-/plugin install hyrox-pacing --marketplace pythongod/rox-pace
+/plugin marketplace add pythongod/rox-pace
+/plugin install hyrox-pacing@rox-pace
 ```
 
-Other agents: copy `skills/hyrox-pacing` into your agent's skills folder.
+From a terminal, the same in one line:
+
+```bash
+claude plugin marketplace add pythongod/rox-pace && claude plugin install hyrox-pacing@rox-pace
+```
+
+**Claude desktop app.** Go to Settings → Plugins → Add, add the marketplace `pythongod/rox-pace`, then install **hyrox-pacing**. The plugin search only finds plugins from marketplaces you have added.
+
+**Other agents.** Copy `skills/hyrox-pacing` into your agent's skills folder.
 
 ## Use it directly
 
