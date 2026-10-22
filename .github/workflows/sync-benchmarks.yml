@@ -1,0 +1,55 @@
+name: Sync benchmarks
+
+# rox-pace.com imports a fresh results report on Mondays (about 12:17 UTC) and
+# publishes the skill data at /data/skill-benchmarks.json. This pulls it, and when
+# it changed commits it with a new patch version so plugin users get the update.
+
+on:
+  schedule:
+    - cron: '7 14 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-benchmarks
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Download benchmarks from rox-pace.com
+        id: download
+        run: |
+          if curl -fsSL --retry 3 -o "$RUNNER_TEMP/benchmarks.json" https://rox-pace.com/data/skill-benchmarks.json; then
+            echo "found=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "::warning::https://rox-pace.com/data/skill-benchmarks.json is not available; nothing to sync."
+            echo "found=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Update benchmarks
+        id: update
+        if: steps.download.outputs.found == 'true'
+        run: python -I scripts/update_benchmarks.py "$RUNNER_TEMP/benchmarks.json"
+
+      - name: Test
+        if: steps.update.outputs.changed == 'true'
+        run: python -m unittest discover -s tests -v
+
+      - name: Commit and push
+        if: steps.update.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add skills/hyrox-pacing .claude-plugin/marketplace.json
+          generated=$(python -c 'import json;print(json.load(open("skills/hyrox-pacing/references/benchmarks.json"))["generatedAt"][:10])')
+          git commit -m "Update benchmarks (data from ${generated}), version ${{ steps.update.outputs.version }}"
+          git push

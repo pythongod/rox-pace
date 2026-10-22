@@ -1,0 +1,33 @@
+{
+  "name": "rox-pace",
+  "owner": {
+    "name": "Rox Pace",
+    "url": "https://rox-pace.com"
+  },
+  "metadata": {
+    "description": "HYROX race pacing skills from rox-pace.com"
+  },
+  "plugins": [
+    {
+      "name": "hyrox-pacing",
+      "source": "./",
+      "description": "HYROX goal splits, finish and station percentiles by division, from the data behind https://rox-pace.com",
+      "version": "1.1.0",
+      "homepage": "https://rox-pace.com",
+      "repository": "https://github.com/pythongod/rox-pace",
+      "license": "MIT",
+      "keywords": [
+        "hyrox",
+        "fitness",
+        "running",
+        "pacing",
+        "race"
+      ],
+      "category": "productivity",
+      "strict": false,
+      "skills": [
+        "./skills/hyrox-pacing"
+      ]
+    }
+  ]
+}
