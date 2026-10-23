@@ -4,7 +4,7 @@
 Standard library only. Uses the station model and race-result percentiles in
 ../references/benchmarks.json (the same data rox-pace.com uses).
 
-  hyrox_pace.py plan 1:25:00 [--transitions 45]
+  hyrox_pace.py plan 1:25:00 [--transitions 65]
   hyrox_pace.py percentile 1:25:00 [--division men]
   hyrox_pace.py station wall-balls 6:30 [--division women]
   hyrox_pace.py target 25 [--division men]
@@ -141,7 +141,7 @@ def main():
     sub = parser.add_subparsers(dest="command", required=True)
     p = sub.add_parser("plan", help="split a goal finish time into 16 segments")
     p.add_argument("goal", type=parse_time)
-    p.add_argument("--transitions", type=int, default=45, help="seconds per station spent in the Roxzone (default 45, like rox-pace.com)")
+    p.add_argument("--transitions", type=int, default=65, help="seconds per station spent in the Roxzone (default 65, like rox-pace.com)")
     p.set_defaults(func=plan)
     p = sub.add_parser("percentile", help="where a finish time ranks")
     p.add_argument("time", type=parse_time)

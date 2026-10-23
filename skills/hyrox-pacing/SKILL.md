@@ -1,7 +1,7 @@
 ---
 name: hyrox-pacing
 description: HYROX race pacing and benchmarks. Splits a goal finish time into all 8 runs and 8 stations, ranks a finish or station time against 600k+ real race results by division (Open, Pro, Doubles, Relay), and gives target splits for a percentile. Use when someone asks about HYROX pacing, split times, goal times, "is my time good", run pace per km, or station benchmarks (SkiErg, sled push, sled pull, burpee broad jumps, row, farmers carry, sandbag lunges, wall balls).
-version: 1.1.0
+version: 1.2.0
 homepage: https://rox-pace.com
 metadata: {"openclaw":{"emoji":"🏃","homepage":"https://rox-pace.com","requires":{"bins":["python3"]}}}
 ---
@@ -45,8 +45,9 @@ Division ids include `men`, `women`, `menPro`, `womenPro`, `doublesMen`,
   otherwise default to `men` or `women` from context and say which you used.
 - `plan` spreads the goal across segments in proportion to a typical race
   (runs slow slightly as fatigue builds). `--transitions` reserves seconds
-  per station for the Roxzone and defaults to 45, like rox-pace.com: official
-  finish times include the Roxzone, whose median is 45–60 s per station.
+  per station for the Roxzone and defaults to 65, like rox-pace.com: official
+  finish times include the Roxzone, and Open finishes leave 63–69 s per
+  station after their 16 splits.
 - Percentiles read "top N%": lower is faster. They come from averaged
   per-event distributions, so treat them as a guide, not an official rank.
 - `target` gives each segment's own percentile time; these do not add up
