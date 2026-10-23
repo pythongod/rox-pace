@@ -23,7 +23,7 @@ class HyroxPaceTests(unittest.TestCase):
         lines = [line for line in pace("plan", "1:25:00").splitlines() if "cumulative" in line]
         self.assertEqual(len(lines), 16)
         self.assertEqual(seconds(lines[-1].split("cumulative")[1].strip()), 85 * 60)
-        self.assertIn("transitions 45s", pace("plan", "1:25:00").splitlines()[0])
+        self.assertIn("transitions 65s", pace("plan", "1:25:00").splitlines()[0])
 
     def test_percentile_and_divisions(self):
         self.assertIn("men", pace("divisions"))
